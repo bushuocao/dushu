@@ -115,7 +115,16 @@
         add(2,3);
          ```  
          加载带有命名导出的模块时，import后面要跟一堆打括号来将导入的变量名包裹起来，并且这些变量名需要与导出的变量名完全一致。导入变量的效果相当于在当前作用域下声明了这些变量（name和add），并且不可对其进行更改，也就是所有导入的变量都是只读的。 
-        - as 导入重命名：   
+        - as 导入重命名：  
+        ```
+        import { name , add as calculateSun } form './calculateSun.js';
+        calculateSun(2,3);
+        ```
+        - 导入多个变量，采用整体导入：
+        ```
+        import * as calculateSun form './calculateSun.js';
+        console.log(calculateSun.add(2,3));
+        console.log(calculateSun.name);
 
         
          
