@@ -75,13 +75,13 @@
 2. ES6 Module
     - 模块输出 export
         - 命名导出：  
-        写法1:  
         ```
+        写法1: 
         export const name = 'calculator';
         export const add = function(a,b) { return a+b; };
         ```
-          写法2:
         ```
+        写法2:
         const name = 'calculator';
          const add = function(a,b) { return a+b; };
         export { name ,add };
@@ -145,7 +145,132 @@
         ```
         - 定义打包名称 `entry`  
         定义 chunk name。如果工程只有一个入口，那么默认其chunk name为“main”；
-        如果工程有多个入口，我们需要为每个入口定义chunk name，来作为该chunk的唯一标示。entry的配置可以有多种形式L：字符串、数组、对象、函数. 
+        如果工程有多个入口，我们需要为每个入口定义chunk name，来作为该chunk的唯一标示。entry的配置可以有多种形式L：字符串、数组、对象、函数。
+        ```
+        //1.字符串类型入口
+        module.exports = {
+            entry:'./scripts/index.js',
+            output:{
+                filename:'bundle.js',
+            },
+            mode:'development',
+        };
+        ```
+        ```
+        //2.数组类型入口
+        module.exports = {
+            entry:['babel-polyfill','./src/index.js'],
+        };
+        ```
+        备注：传入一个数组的作用是将多个资源预先合并，在打包时Webpack会将数组中的最后一个元素作为实际的入口路径。上面配置等同于：
+        ```
+        // webpack.config.js
+        module.exports = {
+            entry:'./src/index.js',
+        };
+
+        //index.js
+        import 'babel-polyfill';
+        ```
+        ```
+        //3.对象类型入口
+        module.exports = {
+            entry:{
+                // chunk name为index，入口路径为./src/index.js
+                index:'./src/index.js',
+                // chunk name 为lib，入口路径为./src/lib.js
+                lib:'./src/lib.js',
+            }
+        }
+        
+        //对象属性值也可以为字符串或数组。如：
+
+        module.export = {
+            entry:{
+                index:['babel-polyfill','./src/index.js'],
+                lib:'./src/lib.js',
+            },
+        };
+        //备注：在使用字符串或者数组定义单页面时，并没有办法更改chunk name，只能为“main”。在使用对象来定义多入口时，则必须为每一个入口定义chunk name。
+        ```
+        ```
+        4.函数类型入口
+        用函数定义入口时，只要返回上面介绍的任何配置形式即可，如：
+
+        //返回一个字符串型入口
+        module.exports = {
+            entry:() => './src/index.js',
+        };
+
+        //返回一个对象型的入口
+        module.exports = {
+            entry:() => ({
+                index:['babel-polyfill','./src/index.js'],
+                lib:'./src/lib.js',
+            }),
+        };
+
+        传入一个函数的优点在于我们可以在函数体里添加一些动态的逻辑来获取工程的入口。另外，函数也支持返回一个Promise对象来进行异步操作。
+        module.exports = {
+            entry: () => new Promise((resolve) => {
+                //模拟异步操作
+                setTimeout(() => {
+                    resolve('./src/index.js');
+                },1000);
+            }),
+        };
+        ```
+    - 实例：
+        - 单页面应用（SPA)  
+        当一个bundle大于250kB时（压缩前）会认为这个bundle已经过大了，在打包时会发生警告。
+        - 提取 vendor  
+       `vendor` 的意思是“供应商”，在Webpack中vendor一般指的是工程所使用的库、框架等第三方模块集中打包而产生的bundle。例如：
+       ```
+       module.exports = {
+           context:path.join(__dirname,'./src'),
+           entry:{
+               app:'./src/app.js',
+               vendor:['react','react-dom','react-router'],
+           },
+       };
+       ```
+       - 多页面应用  
+       入口和页面一一对应
+       ```
+       module.exports = {
+           entry:{
+               pageA:'./src/pageA.js',
+               pageB:'./src/pageB.js',
+               pageC:'./src/pageC.js',
+               vendor:['react','react-dom'],
+           }
+       }
+       ```
+       - 配置资源出口
+       ```
+       const path = require('path');
+       module.exports = {
+           entry:'./src/app.js',
+           output:{
+               filename:'bundle.js',
+               path:path.join(__dirname,'assets'),
+               publicPath:'/dist/',
+           },
+       }
+       ```
+       filename的作用是控制输出资源的文件名，其形式为字符串。  
+       在多入口的场景中，我们需要为对应产生的每个bundle指定不同的名字，Webpackz支持使用一种类似模版语言的形式动态地生成文件名，如：
+       ```
+       module.exports = {
+           entry:{
+               app:'./src/app.js',
+               vendor:'./src/vendor.js',
+           output:{
+               filename:'[name].js',
+           },
+       }
+       ```
+       在资源输出时，上面配置的filename中的[name]会被替换为chunk name，因此最后项目中实际生成的资源是vendor.js与app.js.
 
 
         
