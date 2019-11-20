@@ -80,7 +80,7 @@
         export const name = 'calculator';
         export const add = function(a,b) { return a+b; };
         ```
-        写法2:
+          写法2:
         ```
         const name = 'calculator';
          const add = function(a,b) { return a+b; };
@@ -116,8 +116,8 @@
          ```  
          加载带有命名导出的模块时，import后面要跟一堆打括号来将导入的变量名包裹起来，并且这些变量名需要与导出的变量名完全一致。导入变量的效果相当于在当前作用域下声明了这些变量（name和add），并且不可对其进行更改，也就是所有导入的变量都是只读的。 
         - as 导入重命名：  
-        `import { name,add as calculateSun } from './calculator.js'; `
-        整体导入重命名：  
+        `import { name,add as calculateSun } from './calculator.js';`
+        - 整体导入重命名：  
         `import * as calculator from './calculator';`  
         使用import * as <myModule>可以把所有导入的变量作为属性值添加到<myModule>对象中，从而减少了对当前作用域对影响。
 3. 资源输入输出：  
