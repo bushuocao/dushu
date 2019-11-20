@@ -116,15 +116,37 @@
          ```  
          加载带有命名导出的模块时，import后面要跟一堆打括号来将导入的变量名包裹起来，并且这些变量名需要与导出的变量名完全一致。导入变量的效果相当于在当前作用域下声明了这些变量（name和add），并且不可对其进行更改，也就是所有导入的变量都是只读的。 
         - as 导入重命名：  
+        `import { name,add as calculateSun } from './calculator.js'; `
+        整体导入重命名：  
+        `import * as calculator from './calculator';`  
+        使用import * as <myModule>可以把所有导入的变量作为属性值添加到<myModule>对象中，从而减少了对当前作用域对影响。
+3. 资源输入输出：  
+    Webpack会从入口文件开始检索，并将具有依赖关系的模块生成一棵依赖树，最终得到一个chunk。由这个chunk得到的打包产物我们一般称之为bundle。
+    - 资源处理流程
+        - 打包入口`entry`
+            - 指定Webpack具体从源码目录下对哪个文件开始打包。
+        - 打包代码块`chunk`
+            - 存在依赖关系的模块会在打包时被封装为一个chunk。
+        - 打包产物`bundle`
+            - 由chunk得到的打包产物。
+    - 配置资源入口
+        - 资源入口路径前缀`context`  
+        在配置时要求必须使用绝对路径的形式，只能为字符串。
         ```
-        import { name , add as calculateSun } form './calculateSun.js';
-        calculateSun(2,3);
+        //以下两种配置达到的效果相同，入口都为<工程根路径>/src/scripts/index.js
+        module.exports = {
+            context:path.join(__dirname,'./src'),
+            entry:'./scripts/index.js',
+        };
+        module.exports = {
+            context:path.join(__dirname,'./src/scripts'),
+            entry:'./index.js',
+        };
         ```
-        - 导入多个变量，采用整体导入：
-        ```
-        import * as calculateSun form './calculateSun.js';
-        console.log(calculateSun.add(2,3));
-        console.log(calculateSun.name);
+        - 定义打包名称 `entry`  
+        定义 chunk name。如果工程只有一个入口，那么默认其chunk name为“main”；
+        如果工程有多个入口，我们需要为每个入口定义chunk name，来作为该chunk的唯一标示。entry的配置可以有多种形式L：字符串、数组、对象、函数. 
+
 
         
          
