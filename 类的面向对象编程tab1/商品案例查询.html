@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    table {
+        border-collapse: collapse;
+    }
+
+    table,
+    td,
+    th {
+        text-align: center;
+        border: 1px solid black;
+    }
+
+    .start {
+        width: 40px;
+    }
+
+    .end {
+        width: 40px;
+    }
+
+    .product {
+        width: 40px;
+    }
+
+    .search {
+        width: 600px;
+        margin: 20px auto;
+    }
+
+    table {
+        width: 600px;
+        margin: 20px auto;
+    }
+</style>
+
+<body>
+    <div class="search">
+        按照价格查询：<input type="text" class="start">-<input type="text" class="end">
+        <button class="search-price">搜索</button>按照商品名称查询<input type="text" class="product">
+        <button class="search-pro">查询</button>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>产品名称</th>
+                <th>产品价格</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <script>
+        var data = [
+            {
+                id: 1,
+                pname: '小米',
+                price: 3999,
+            }, {
+                id: 2,
+                pname: 'oppo',
+                price: 999,
+            }, {
+                id: 3,
+                pname: '荣耀',
+                price: 1299,
+            }, {
+                id: 4,
+                pname: '华为',
+                price: 1999,
+            }];
+        var tbody = document.querySelector('tbody');
+        var search_price = document.querySelector('.search-price');
+        var start = document.querySelector('.start');
+        var end = document.querySelector('.end');
+        var product = document.querySelector('.product');
+        var search_pro = document.querySelector('.search-pro');
+
+        function setDate(mydate){
+            tbody.innerHTML = '';
+            mydate.forEach(function (value) {
+                var tr = document.createElement('tr');
+                tr.innerHTML = '<td>' + value.id + '</td><td>' + value.pname + '</td><td>' + value.price + '</td>';
+                tbody.appendChild(tr);
+            })
+        }
+        setDate(data);
+
+        search_price.addEventListener('click', function () {
+            var newDate = data.filter(function (value) {
+                return value.price > start.value && value.price <= end.value;
+            })
+            console.log(newDate);
+            setDate(newDate);
+        });
+        search_pro.addEventListener('click', function () {
+            var arr = [];
+            var newDate = data.some(function (value) {
+                if(value.pname === product.value){
+                    arr.push(value);
+                    return true;
+                }
+            });
+            setDate(arr);
+        });
+    </script>
+</body>
+
+</html>
