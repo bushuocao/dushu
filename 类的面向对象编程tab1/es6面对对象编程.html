@@ -44,29 +44,9 @@
             </div>
         </div>
     </main>
-    <script src="js/tab.js"></script>
-    <script>
-        Array.prototype.sum = function(){
-            var sum = 0;
-            for (var i=0;i < this.length;i++){
-                sum += this[i];
-            }
-            return sum;
-        }
-        var arr = [1,2,3,4,5];
-        console.log(arr.sum());
-        console.log(Array.prototype);
-
-        function fun(x,y){
-            console.log('不说');
-            console.log(this);
-            console.log(x+y)
-        }
-        var o = {
-            name:'andy'
-        };
-        fun.call(o,1,2);
-    </script>
+    <script src="js/tabs.js"></script>
+    
+    
 </body>
 
 </html>

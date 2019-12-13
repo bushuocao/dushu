@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <button>点击</button>
+    <button>点击</button>
+    <button>点击</button>
+    <ul class="nav">
+        <li>榴莲</li>
+        <li>臭豆腐</li>
+        <li>罐头</li>
+        <li>猪蹄</li>
+    </ul>
+    <script>
+        var lis = document.querySelector('.nav').querySelectorAll('li');
+        for (i = 0; i < lis.length; i++) {
+            lis[i].index = i;
+            lis[i].onclick = function () {
+                console.log(this.index);
+            }
+        }
+        // for (i = 0; i < lis.length; i++) {
+        //     (function (i) {
+        //         lis[i].onclick = function () {
+        //             console.log(i);
+        //         }
+        //     })(i);
+        // }
+        // var btns = document.querySelectorAll('button');
+        // for(var i = 0;i < btns.length; i++){
+        //     btns[i].onclick = function(){
+        //         this.disabled = true;
+        //         setTimeout(() => {
+        //             this.disabled = false;
+        //         }, 3000);
+        //     }
+        // }
+        //递归函数求斐波那数列（兔子序列）1、1、2、3、5、8、13、21...
+        // function fb(n){
+        //     if(n ===1 || n === 2){
+        //         return 1;
+        //     } 
+        //     return fb(n - 1) + fb(n-2);
+        // }
+        var data = [{
+            id: 1,
+            name: '家电',
+            goods: [{
+                id: 11,
+                gname: '冰箱',
+                goods: [{
+                    id: 111,
+                    gname: '美的'
+                },
+                {
+                    id: 112,
+                    gname: '格力'
+                }],
+            }, {
+                id: 12,
+                gname: '洗衣机',
+                goods: [
+                    {
+                        id: 121,
+                        gname: '格力'
+                    },
+                    {
+                        id: 122,
+                        gname: '美的'
+                    }
+                ],
+            }],
+        }, {
+            id: 2,
+            name: '服饰',
+            goods: [
+                {
+                    id: 21,
+                    gname: '格力'
+                },
+                {
+                    id: 22,
+                    gname: '美的'
+                }
+            ],
+        }];
+
+        function getID(json, id) {
+            var o = {};
+            json.forEach(function (item) {
+                console.log(item);
+                if (item.id == id) {
+                    o = item;
+                } else if (item.goods && item.goods.length > 0) {
+                     o = getID(item.goods, id);
+                }
+            });
+            return o;
+        }
+        console.log(getID(data, 11));
+    </script>
+</body>
+
+</html>

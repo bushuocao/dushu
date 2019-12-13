@@ -1,0 +1,177 @@
+.w {
+    /*由于注册页面的html文件没有引入版心的样式 所以这里要重新写*/
+    width: 1200px;
+    margin: auto;
+}
+
+.header {
+    height: 82px;
+    border-bottom: 2px solid #b1191a;
+}
+
+.logo {
+    padding-top: 15px;
+}
+
+.registerarea {
+    height: 520px;
+    /*大一点、小一点没有关系*/
+    border: 1px solid #ccc;
+    margin-top: 20px;
+}
+
+.registerarea h3 {
+    height: 40px;
+    border-bottom: 1px solid #ccc;
+    background-color: #ececec;
+    padding: 0 10px;
+    /*反正h3没给宽度 可以放心地*/
+    font-weight: 400;
+    /*不加粗*/
+    line-height: 40px;
+    font-size: 18px;
+}
+
+.registerarea h3 em {
+    /*如果只是.registerarea em则会对下面的.safe em造成影响 
+因为.safe em也属于registerarea内 所以需要h3在这里把这限定死*/
+    font-size: 14px;
+    float: right;
+}
+
+
+.registerarea a {
+    color: #c81623;
+}
+
+.reg_form {
+    /*这个盒子要求左右居中对齐*/
+    width: 700px;
+    height: 400px;
+    /*宽高都是随手拉的*/
+    /*background-color: pink;*/
+    margin: 40px auto 0;
+    /*上40px 左右auto 不给下外边距*/
+}
+
+.reg_form label {
+    display: inline-block;
+    width: 100px;
+    height: 36px;
+    line-height: 36px;
+    text-align: right;
+    /*文字右对齐*/
+}
+
+.inp {
+    width: 238px;
+    height: 34px;
+    border: 1px solid #ccc;
+    margin-left: 5px;
+}
+
+.error {
+    margin-left: 10px;
+    color: #df3033;
+}
+
+.error_icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: url(../img/error.png) no-repeat;
+    /*出现行内块元素的地方一般都会出现这句话*/
+    vertical-align: middle;
+    /*让背景图片和文字对齐（中线对齐）*/
+    /*若中线对齐之后依然觉得不够齐 这里可以利用这个微调 让图标再往上走2px*/
+    margin-top: -2px;
+}
+
+.reg_form li {
+    margin-bottom: 15px;
+    /*让每个li 之间留点距离*/
+}
+
+.success {
+    margin-left: 10px;
+    color: #40b83f;
+}
+
+.success_icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: url(../img/success.png) no-repeat;
+    /*出现行内块元素的地方一般都会出现这句话*/
+    vertical-align: middle;
+    /*让背景图片和文字对齐（中线对齐）*/
+    /*若中线对齐之后依然觉得不够齐 这里可以利用这个微调 让图标再往上走2px*/
+    margin-top: -2px;
+}
+
+.safe {
+    padding-left: 181px;
+    /*全部写完之后 在检查元素里面调*/
+    color: #b2b2b2;
+}
+
+.safe em {
+    /*em行内元素内边距不要给上下 可以给左右*/
+    padding: 0 12px;
+    color: #fff;
+}
+
+.ruo {
+    background-color: #de1111;
+}
+
+.zhong {
+    background-color: #40b83f;
+}
+
+.qiang {
+    background-color: #f79100;
+}
+
+.agree {
+    padding-left: 100px;
+}
+
+.agree input {
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.agree a {
+    color: #1ba1e6;
+}
+
+.footer {
+    height: 120px;
+    text-align: center;
+}
+
+.links {
+    margin-top: 20px;
+    height: 30px;
+}
+
+.copyright {
+    line-height: 20px;
+}
+
+.over {
+    width: 200px;
+    height: 34px;
+    background-color: #c81623;
+    margin: 30px 0 0 130px;
+    border: 0;
+    /*不要默认的小边框*/
+    color: #fff;
+    font-size: 14px;
+}
+
+ul li {
+    list-style-type: none;
+}
+span { word-break:nowrap;}
